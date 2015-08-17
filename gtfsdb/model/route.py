@@ -41,6 +41,7 @@ class Route(Base):
     route_color = Column(String(6))
     route_text_color = Column(String(6))
     route_sort_order = Column(Integer, index=True)
+    min_headway_minutes = Column(Integer) # Trillium extension.
 
     trips = relationship(
         'Trip',
