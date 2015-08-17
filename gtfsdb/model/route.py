@@ -22,7 +22,7 @@ class RouteType(Base):
 
     route_type = Column(Integer, primary_key=True, index=True, autoincrement=False)
     route_type_name = Column(String(255))
-    route_type_desc = Column(String(255))
+    route_type_desc = Column(String(1023))
 
 
 class Route(Base):
