@@ -35,7 +35,7 @@ class Route(Base):
     agency_id = Column(String(255), index=True, nullable=True)
     route_short_name = Column(String(255))
     route_long_name = Column(String(255))
-    route_desc = Column(String(255))
+    route_desc = Column(String(1023))
     route_type = Column(Integer, index=True, nullable=False)
     route_url = Column(String(255))
     route_color = Column(String(6))
