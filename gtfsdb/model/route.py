@@ -179,7 +179,9 @@ class RouteDirection(Base):
     __tablename__ = 'route_directions'
 
     route_id = Column(String(255), primary_key=True, index=True, nullable=False)
-    direction_id = Column(Integer, primary_key=True, index=True, nullable=False)
+    # Ed 2017-04-20. should this be OK as NULL?
+    # See https://github.com/trilliumtransit/GTFSManager/issues/897 
+    direction_id = Column(Integer, primary_key=True, index=True, nullable=False) 
     direction_name = Column(String(255))
 
 
