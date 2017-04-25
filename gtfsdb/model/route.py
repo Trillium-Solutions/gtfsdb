@@ -12,7 +12,8 @@ from sqlalchemy.sql import func
 from gtfsdb import config
 from gtfsdb.model.base import Base
 
-__all__ = ['RouteType', 'Route', 'RouteDirection', 'RouteStop', 'RouteFilter']
+# __all__ = ['RouteType', 'Route', 'RouteDirection', 'RouteStop', 'RouteFilter']
+__all__ = ['RouteType', 'Route', 'RouteStop', 'RouteFilter']
 
 
 class RouteType(Base):
@@ -49,11 +50,11 @@ class Route(Base):
         foreign_keys='(Route.route_id)',
         uselist=True, viewonly=True)
 
-    directions = relationship(
-        'RouteDirection',
-        primaryjoin='Route.route_id==RouteDirection.route_id',
-        foreign_keys='(Route.route_id)',
-        uselist=True, viewonly=True, lazy='joined')
+    #directions = relationship(
+    #    'RouteDirection',
+    #    primaryjoin='Route.route_id==RouteDirection.route_id',
+    #    foreign_keys='(Route.route_id)',
+    #    uselist=True, viewonly=True, lazy='joined')
 
     @property
     def is_active(self, date=None):
@@ -85,15 +86,15 @@ class Route(Base):
 
         return self._route_name
 
-    def direction_name(self, direction_id, def_val=''):
-        ret_val = def_val
-        try:
-            dir = self.directions.filter(RouteDirection.direction_id==direction_id)
-            if dir and dir.direction_name:
-                ret_val = dir.direction_name
-        except:
-            pass
-        return ret_val
+    #def direction_name(self, direction_id, def_val=''):
+    #    ret_val = def_val
+    #    try:
+    #        dir = self.directions.filter(RouteDirection.direction_id==direction_id)
+    #        if dir and dir.direction_name:
+    #            ret_val = dir.direction_name
+    #    except:
+    #        pass
+    #    return ret_val
 
     @property
     def _get_start_end_dates(self):
@@ -172,17 +173,17 @@ class Route(Base):
 
         return ret_val
 
-class RouteDirection(Base):
-    datasource = config.DATASOURCE_GTFS
-    filename = 'route_directions.txt'
-
-    __tablename__ = 'route_directions'
-
-    route_id = Column(String(255), primary_key=True, index=True, nullable=False)
-    # Ed 2017-04-20. should this be OK as NULL?
-    # See https://github.com/trilliumtransit/GTFSManager/issues/897 
-    direction_id = Column(Integer, primary_key=True, index=True, nullable=False) 
-    direction_name = Column(String(255))
+#class RouteDirection(Base):
+#    datasource = config.DATASOURCE_GTFS
+#    filename = 'route_directions.txt'
+#
+#    __tablename__ = 'route_directions'
+#
+#    route_id = Column(String(255), primary_key=True, index=True, nullable=False)
+#    # Ed 2017-04-20. should this be OK as NULL?
+#    # See https://github.com/trilliumtransit/GTFSManager/issues/897 
+#    direction_id = Column(Integer, primary_key=True, index=True, nullable=False) 
+#    direction_name = Column(String(255))
 
 
 class RouteStop(Base):
@@ -207,11 +208,11 @@ class RouteStop(Base):
         foreign_keys='(RouteStop.stop_id)',
         uselist=False, viewonly=True, lazy='joined')
 
-    direction = relationship(
-        'RouteDirection',
-        primaryjoin='RouteStop.route_id==RouteDirection.route_id and RouteStop.direction_id==RouteDirection.direction_id',
-        foreign_keys='(RouteStop.route_id, RouteStop.direction_id)',
-        uselist=False, viewonly=True, lazy='joined')
+    #direction = relationship(
+    #    'RouteDirection',
+    #    primaryjoin='RouteStop.route_id==RouteDirection.route_id and RouteStop.direction_id==RouteDirection.direction_id',
+    #    foreign_keys='(RouteStop.route_id, RouteStop.direction_id)',
+    #    uselist=False, viewonly=True, lazy='joined')
 
     @classmethod
     def load(cls, db, **kwargs):
@@ -267,12 +268,12 @@ class RouteStop(Base):
                 if len(unique_stops_ids) > 0:
 
                     # step 6: if a RouteDirection doesn't exist, let's create it...
-                    if r.directions is None or len(r.directions) == 0:
-                        rd = RouteDirection()
-                        rd.route_id = r.route_id
-                        rd.direction_id = d
-                        rd.direction_name = "Outbound" if d is 0 else "Inbound"
-                        session.add(rd)
+                    #if r.directions is None or len(r.directions) == 0:
+                    #    rd = RouteDirection()
+                    #    rd.route_id = r.route_id
+                    #    rd.direction_id = d
+                    #    rd.direction_name = "Outbound" if d is 0 else "Inbound"
+                    #    session.add(rd)
 
                     # step 7: create new RouteStop records
                     for k, stop_id in enumerate(unique_stops_ids):
