@@ -27,6 +27,7 @@ class StopTime(Base):
     drop_off_type = Column(Integer, default=0)
     shape_dist_traveled = Column(Numeric(20, 10))
     timepoint = Column(Boolean, index=True, default=False)
+    continuous_stops = Column(Boolean, index=True, default=False)
 
     stop = relationship(
         'Stop',
