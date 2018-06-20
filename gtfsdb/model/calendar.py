@@ -46,28 +46,6 @@ class Calendar(Base):
     end_date = Column(Date, nullable=False)
     service_name = Column(String(255)) # Trillium extension, a human-readable name for the calendar.
 
-
-    def text_to_boolean(self, possibly_text):
-        print ("text_to_boolean(%s)" % (possibly_text,));
-        if possibly_text == '1':
-            return True
-        elif possibly_text == '0':
-            return False
-        else: 
-            return possibly_text
-
-    def __init__(self, *args, **kwargs):
-        #self.monday    = self.possibly_text(self.monday)
-        #self.monday    = self.possibly_text(kwargs['monday'])
-        kwargs['monday']    = self.text_to_boolean(kwargs['monday'])
-        kwargs['tuesday']   = self.text_to_boolean(kwargs['tuesday'])
-        kwargs['wednesday'] = self.text_to_boolean(kwargs['wednesday'])
-        kwargs['thursday']  = self.text_to_boolean(kwargs['thursday'])
-        kwargs['friday']    = self.text_to_boolean(kwargs['friday'])
-        kwargs['saturday']  = self.text_to_boolean(kwargs['saturday'])
-        kwargs['sunday']    = self.text_to_boolean(kwargs['sunday'])
-        super(Calendar, self).__init__(*args, **kwargs)
-
     def weekday_list(self):
         weekday_dict = dict(monday=0, tuesday=1, wednesday=2, thursday=3,
                             friday=4, saturday=5, sunday=6)
