@@ -36,6 +36,25 @@ class Calendar(Base):
     end_date = Column(Date, nullable=False)
     service_name = Column(String(255)) # Trillium extension, a human-readable name for the calendar.
 
+
+    def text_to_boolean(self, possibly_text):
+        if possibly_text == '1':
+            return True
+        elif possibly_text == '0':
+            return False
+        else: 
+            return possibly_text
+
+    def __init__(self, *args, **kwargs):
+        super(Calendar, self).__init__(*args, **kwargs)
+        self.monday = self.possibly_text(self.monday)
+        self.tuesday = self.possibly_text(self.tuesday)
+        self.wednesday = self.possibly_text(self.wednesday)
+        self.thursday = self.possibly_text(self.thursday)
+        self.friday = self.possibly_text(self.friday)
+        self.saturday = self.possibly_text(self.saturday)
+        self.sunday = self.possibly_text(self.sunday)
+
     def weekday_list(self):
         weekday_dict = dict(monday=0, tuesday=1, wednesday=2, thursday=3,
                             friday=4, saturday=5, sunday=6)
