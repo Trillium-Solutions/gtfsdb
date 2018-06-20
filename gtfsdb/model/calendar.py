@@ -49,13 +49,13 @@ class Calendar(Base):
     def __init__(self, *args, **kwargs):
         #self.monday    = self.possibly_text(self.monday)
         #self.monday    = self.possibly_text(kwargs['monday'])
-        kwargs['monday']    = self.possibly_text(kwargs['monday'])
-        kwargs['tuesday']   = self.possibly_text(kwargs['tuesday'])
-        kwargs['wednesday'] = self.possibly_text(kwargs['wednesday'])
-        kwargs['thursday']  = self.possibly_text(kwargs['thursday'])
-        kwargs['friday']    = self.possibly_text(kwargs['friday'])
-        kwargs['saturday']  = self.possibly_text(kwargs['saturday'])
-        kwargs['sunday']    = self.possibly_text(kwargs['sunday'])
+        kwargs['monday']    = self.text_to_boolean(kwargs['monday'])
+        kwargs['tuesday']   = self.text_to_boolean(kwargs['tuesday'])
+        kwargs['wednesday'] = self.text_to_boolean(kwargs['wednesday'])
+        kwargs['thursday']  = self.text_to_boolean(kwargs['thursday'])
+        kwargs['friday']    = self.text_to_boolean(kwargs['friday'])
+        kwargs['saturday']  = self.text_to_boolean(kwargs['saturday'])
+        kwargs['sunday']    = self.text_to_boolean(kwargs['sunday'])
         super(Calendar, self).__init__(*args, **kwargs)
 
     def weekday_list(self):
