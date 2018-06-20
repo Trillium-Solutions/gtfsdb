@@ -47,7 +47,6 @@ class Calendar(Base):
             return possibly_text
 
     def __init__(self, *args, **kwargs):
-        super(Calendar, self).__init__(*args, **kwargs)
         #self.monday    = self.possibly_text(self.monday)
         #self.monday    = self.possibly_text(kwargs['monday'])
         kwargs['monday']    = self.possibly_text(kwargs['monday'])
@@ -57,6 +56,7 @@ class Calendar(Base):
         kwargs['friday']    = self.possibly_text(kwargs['friday'])
         kwargs['saturday']  = self.possibly_text(kwargs['saturday'])
         kwargs['sunday']    = self.possibly_text(kwargs['sunday'])
+        super(Calendar, self).__init__(*args, **kwargs)
 
     def weekday_list(self):
         weekday_dict = dict(monday=0, tuesday=1, wednesday=2, thursday=3,
