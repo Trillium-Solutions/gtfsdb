@@ -16,7 +16,8 @@ extras_require = dict(
 
 # There is some crazy bullshit where sqlalchemy 1.2 will not parse '1' as boolean true and
 # I can't figure out how the fuck to make it try. Ed 2018-06-20 
-install_requires = ['geoalchemy2>=0.2.4', 'sqlalchemy>=0.9,<1.1.999999']
+#install_requires = ['geoalchemy2>=0.2.4', 'sqlalchemy>=0.9,<1.1.999999']
+install_requires = ['geoalchemy2>=0.2.4', 'sqlalchemy>=0.9']
 if sys.version_info[:2] <= (2, 6):
     install_requires.append('argparse>=1.2.1')
     extras_require['dev'].append('unittest2')
