@@ -38,6 +38,7 @@ class Calendar(Base):
 
 
     def text_to_boolean(self, possibly_text):
+        print ("text_to_boolean(%s)" % (possibly_text,));
         if possibly_text == '1':
             return True
         elif possibly_text == '0':
