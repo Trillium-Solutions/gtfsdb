@@ -1,6 +1,6 @@
 postgres:
 	buildout install prod postgresql
 
-install
+install:
 	python setup.py install
 
