@@ -48,13 +48,15 @@ class Calendar(Base):
 
     def __init__(self, *args, **kwargs):
         super(Calendar, self).__init__(*args, **kwargs)
-        self.monday = self.possibly_text(self.monday)
-        self.tuesday = self.possibly_text(self.tuesday)
-        self.wednesday = self.possibly_text(self.wednesday)
-        self.thursday = self.possibly_text(self.thursday)
-        self.friday = self.possibly_text(self.friday)
-        self.saturday = self.possibly_text(self.saturday)
-        self.sunday = self.possibly_text(self.sunday)
+        #self.monday    = self.possibly_text(self.monday)
+        #self.monday    = self.possibly_text(kwargs['monday'])
+        kwargs['monday']    = self.possibly_text(kwargs['monday'])
+        kwargs['tuesday']   = self.possibly_text(kwargs['tuesday'])
+        kwargs['wednesday'] = self.possibly_text(kwargs['wednesday'])
+        kwargs['thursday']  = self.possibly_text(kwargs['thursday'])
+        kwargs['friday']    = self.possibly_text(kwargs['friday'])
+        kwargs['saturday']  = self.possibly_text(kwargs['saturday'])
+        kwargs['sunday']    = self.possibly_text(kwargs['sunday'])
 
     def weekday_list(self):
         weekday_dict = dict(monday=0, tuesday=1, wednesday=2, thursday=3,
