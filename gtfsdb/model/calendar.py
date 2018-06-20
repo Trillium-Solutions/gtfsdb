@@ -17,6 +17,16 @@ __all__ = ['Calendar', 'CalendarDate', 'UniversalCalendar']
 log = logging.getLogger(__name__)
 
 
+# copied verbatim from http://docs.sqlalchemy.org/en/latest/changelog/migration_12.html#new-features-and-improvements-core 
+from sqlalchemy import Boolean
+from sqlalchemy import TypeDecorator
+class LiberalBoolean(TypeDecorator):
+    impl = Boolean
+    def process_bind_param(self, value, dialect):
+        if value is not None:
+            value = bool(int(value))
+        return value
+
 class Calendar(Base):
     datasource = config.DATASOURCE_GTFS
     filename = 'calendar.txt'
@@ -25,13 +35,13 @@ class Calendar(Base):
     __table_args__ = (Index('calendar_ix1', 'start_date', 'end_date'),)
 
     service_id = Column(String(255), primary_key=True, index=True, nullable=False)
-    monday = Column(Boolean, nullable=False)
-    tuesday = Column(Boolean, nullable=False)
-    wednesday = Column(Boolean, nullable=False)
-    thursday = Column(Boolean, nullable=False)
-    friday = Column(Boolean, nullable=False)
-    saturday = Column(Boolean, nullable=False)
-    sunday = Column(Boolean, nullable=False)
+    monday = Column(LiberalBoolean, nullable=False)
+    tuesday = Column(LiberalBoolean, nullable=False)
+    wednesday = Column(LiberalBoolean, nullable=False)
+    thursday = Column(LiberalBoolean, nullable=False)
+    friday = Column(LiberalBoolean, nullable=False)
+    saturday = Column(LiberalBoolean, nullable=False)
+    sunday = Column(LiberalBoolean, nullable=False)
     start_date = Column(Date, nullable=False)
     end_date = Column(Date, nullable=False)
     service_name = Column(String(255)) # Trillium extension, a human-readable name for the calendar.
