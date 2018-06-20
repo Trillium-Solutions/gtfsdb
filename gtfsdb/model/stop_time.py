@@ -10,6 +10,15 @@ from sqlalchemy.types import Boolean, Integer, Numeric, String
 from gtfsdb import config
 from gtfsdb.model.base import Base
 
+# copied verbatim from http://docs.sqlalchemy.org/en/latest/changelog/migration_12.html#new-features-and-improvements-core 
+from sqlalchemy import Boolean
+from sqlalchemy import TypeDecorator
+class LiberalBoolean(TypeDecorator):
+    impl = Boolean
+    def process_bind_param(self, value, dialect):
+        if value is not None:
+            value = bool(int(value))
+        return value
 
 class StopTime(Base):
     datasource = config.DATASOURCE_GTFS
@@ -26,7 +35,7 @@ class StopTime(Base):
     pickup_type = Column(Integer, default=0)
     drop_off_type = Column(Integer, default=0)
     shape_dist_traveled = Column(Numeric(20, 10))
-    timepoint = Column(Boolean, index=True, default=False)
+    timepoint = Column(LiberalBoolean, index=True, default=False)
     continuous_pickup   = Column(Integer, default=1, nullable=True)
     continuous_drop_off = Column(Integer, default=1, nullable=True)
 
