@@ -27,8 +27,8 @@ class StopTime(Base):
     drop_off_type = Column(Integer, default=0)
     shape_dist_traveled = Column(Numeric(20, 10))
     timepoint = Column(Boolean, index=True, default=False)
-    continuous_pickup   = Column(Integer, default=1, nullable=False)
-    continuous_drop_off = Column(Integer, default=1, nullable=False)
+    continuous_pickup   = Column(Integer, default=1, nullable=True)
+    continuous_drop_off = Column(Integer, default=1, nullable=True)
 
     stop = relationship(
         'Stop',
@@ -46,6 +46,10 @@ class StopTime(Base):
         super(StopTime, self).__init__(*args, **kwargs)
         if 'timepoint' not in kwargs:
             self.timepoint = 'arrival_time' in kwargs
+        if 'continuous_pickup' not in kwargs:
+            self.continuous_pickup = 1 # apply default
+        if 'continuous_drop_off' not in kwargs:
+            self.continuous_pickup = 1 # apply default
 
     def get_headsign(self):
         ''' get the headsign at this stop ... rule is that if stop is empty, use trip headsign '''
