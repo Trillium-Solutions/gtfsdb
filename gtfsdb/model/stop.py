@@ -20,20 +20,20 @@ class Stop(Base):
     __tablename__ = 'stops'
 
     stop_id = Column(String(255), primary_key=True, index=True, nullable=False)
-    stop_code = Column(String(50))
+    stop_code = Column(String(255))
     stop_name = Column(String(1023), nullable=False)
     stop_desc = Column(String(1023))
     stop_lat = Column(Numeric(12, 9), nullable=False)
     stop_lon = Column(Numeric(12, 9), nullable=False)
-    zone_id = Column(String(50))
+    zone_id = Column(String(255))
     stop_url = Column(String(1023))
     location_type = Column(Integer, index=True, default=0)
     parent_station = Column(String(255))
-    stop_timezone = Column(String(50))
+    stop_timezone = Column(String(255))
     wheelchair_boarding = Column(Integer, default=0)
-    platform_code = Column(String(50))
-    direction = Column(String(50))
-    position = Column(String(50))
+    platform_code = Column(String(255))
+    direction = Column(String(255))
+    position = Column(String(255))
 
     stop_features = relationship(
         'StopFeature',
